@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Shopping Login</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="header-nav">
+        <!-- <div class="container"> -->
+        <div class="wrappper flexitem">
+            <a href="#" class="trigger desktop-hide"><span class="i ri-menu-2-line"></span></a>
+            <div class="left flexitem">
+                <div class="logo"><a href="/"><span class="circle"></span>.YourDukkan</a></div>
+                <nav class="mobile-hide">
+                    <ul class="flexitem second-links">
+                        <li><a th:href="@{index}">Home</a></li>
+                        <li><a th:href="@{login}">Login</a></li>
+                        <li><a th:href="@{about}">About us</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="login-form">
+            <h2>Login</h2>
+            <form onsubmit="return login()">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username" value="admin@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" value="admin@#123">
+                </div>
+               <button type="submit"><a th:href="@{index}">Login</a></button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

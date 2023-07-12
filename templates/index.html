@@ -1,0 +1,3136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce Website</title>
+    <link rel="stylesheet" href="" th:href="@{/staic/style.css}" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet"> -->
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+
+
+    <!-- <link rel="stylesheet" href="" th:href="@{/style.css}" /> -->
+
+    <!-- <img alt="" th:src="@{image/Order_of_month_3.webp}"> -->
+
+    <style>
+        :root {
+    --primary-color: #ff6b6b;
+    --secondary-color: #794afa;
+    --secondary-dark-color: #453c5c;
+
+    --light-bg-color: #f2f3f5;
+    --light-text-color: #7c899a;
+    --border-color: #e5eBec;
+    --dark-color: #0a021c;
+
+    --font-small: 13px;
+    --font-smaller: 11px;
+
+    --percent100: 100%;
+    --percent50: 50%;
+
+
+    --trans-background-color: background-color .3s, color .3s;
+    --trans-background-color: background-color .3s;
+    --trans-color: color .3s;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#product-option {
+    display: none;
+  }
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--dark-color);
+    background-color: white;
+
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+strong {
+    font-weight: 800;
+}
+
+/* tabel{
+    border-collapse: collapse;
+    border-spacing: 0;
+} */
+input::placeholder {
+    font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'poppins';
+}
+
+h1 {
+    font-size: calc(1.3em + 1vw);
+    font-weight: 800;
+    line-height: 1;
+}
+
+h2 {
+    font-size: 2.5em;
+}
+
+h3 {
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------
+*REUSABLE SELECTOR
+----------------------*/
+
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 0.938em;
+}
+
+.column {
+    margin-left: -0.938em;
+    margin-right: -0.938em;
+}
+
+.column .row {
+    padding: 0 0.938em;
+}
+
+.flexwrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flexcenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flexitem {
+    display: flex;
+    align-items: center;
+}
+
+.flexcol {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.main-links a:hover {
+    color: var(--secondary-color);
+}
+
+.second-links a:hover {
+    color: var(--light-text-color);
+}
+
+.icon-small,
+.icon-large {
+    display: flex;
+    align-items: center;
+    padding: 0 0.25em;
+    font-weight: normal;
+}
+
+.icon-small {
+    font-size: 1.25em;
+    margin-left: auto;
+}
+
+.icon-large {
+    font-size: 1.75em;
+    padding: 0 0.75em 0 0;
+}
+
+.mobile-hide {
+    display: none;
+}
+
+
+.object-cover img {
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.products .media {
+    position: relative;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.primary-button,
+.secondary-button,
+.light-button {
+    font-size: small;
+    padding: 0.9em 2em;
+    height: auto;
+    width: fit-content;
+    border-radius: 2em;
+    transition: var(--trans-background-color);
+}
+
+.primary-button {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.primary-button:hover {
+    background-color: var(--dark-color);
+}
+
+.secondary-button {
+    background-color: var(--secondary-dark-color);
+    color: white;
+}
+
+.secondary-button:hover {
+    background-color: var(--light-bg-color);
+    color: var(--secondary-dark-color);
+}
+
+.light-button {
+    background-color: var(--light-bg-color);
+}
+
+.light-button:hover {
+    background-color: var(--secondary-dark-color);
+    color: white;
+}
+
+.view-all {
+    /* font-size: small; */
+    display: flex;
+    gap: 1em;
+    transition: var(--trans-color);
+}
+
+.mini-text {
+    font-size: small;
+    color: var(--light-text-color);
+}
+
+
+
+
+
+
+
+/*------------- 
+*   HEADER 
+-------------- */
+
+:where(.off-canvas, header) li > a {
+    display: flex;
+    position: relative;
+    line-height: inherit;
+    transition: var(--trans-color);
+}
+
+.header-top .wrapper {
+    font-weight: var(--fw3);
+    justify-content: space-between;
+    line-height: 42px;
+}
+
+.header-top .wrapper ul {
+    gap: 2em;
+}
+
+.header-top li {
+    position: relative;
+}
+
+.header-top ul ul {
+    position: absolute;
+    left: -1em;
+    line-height: 2em;
+    background-color: white;
+    border: 1px solid var(--border-color);
+    z-index: 1;
+    display: none;
+}
+
+:where(.header-top, .thetop-nav) .right ul ul li a {
+    padding: 0.25em 1em;
+}
+
+:where(.header-top, .thetop-nav) .right ul ul li.current a {
+    background-color: var(--border-color);
+}
+
+.header-top li:hover ul {
+    display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*--------------- 
+*  HEADER NAV 
+----------------- */
+.header-nav {
+    padding: 0.5em 0;
+    margin-bottom: 1.5em;
+    border-bottom: 1px solid var(--border-color);
+
+}
+
+.trigger {
+    font-size: 1.5em;
+    display: flex;
+    padding: 0.25em;
+    margin-right: 0.5em;
+}
+
+.logo a {
+    font-family: 'poppins';
+    font-size: 1.75em;
+    position: relative;
+    font-weight: 800;
+    display: flex;
+    padding-left: 0.75em;
+    /* margin-right: 2em; */
+}
+
+.circle {
+    position: absolute;
+    top: -15px;
+    left: 0;
+    width: 38px;
+    border-radius: 50%;
+    background-color: var(--light-bg-color);
+    z-index: -1;
+}
+
+.circle::before {
+    content: '';
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    /* bottom: 5px; */
+    right: 5px;
+    opacity: .4;
+}
+
+.header-nav nav>ul {
+    line-height: 100px;
+    gap: 2em;
+}
+
+.fly-item {
+    position: absolute;
+    height: 18px;
+    font-size: smaller;
+    padding: 3px;
+    text-align: center;
+    line-height: 10px;
+    color: white;
+}
+
+nav .fly-item {
+    top: 50%;
+    margin-top: -24px;
+    width: 36px;
+    border-radius: 3px;
+    right: -32px;
+    background-color: var(--primary-color);
+}
+
+.header-nav .right {
+    position: relative;
+    margin-left: auto;
+}
+
+.header-nav .right .icon-large {
+    position: relative;
+}
+
+.header-nav .right .fly-item {
+    top: 0;
+    right: 16px;
+    width: 16px;
+    background-color: var(--secondary-dark-color);
+    border-radius: 50%;
+}
+
+/* .header-nav .right .fly-item{
+    right: 16px;
+    width: 28%;
+    background-color: rgb(237 8 8);
+    border-radius: 50%;
+    margin-bottom: 2.3rem;
+} */
+.mega .flexcol {
+    flex: 1;
+    min-width: 100px;
+    padding-right: 2.5em;
+    margin-bottom: 1.5em;
+    z-index: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*----------------------------
+
+* Header Main, Deaprtment Category
+
+-----------------------------*/
+
+.header-main {
+    background-color: var(--secondary-dark-color);
+    padding: 1.5em 0;
+    margin-top: 2em;
+}
+
+.dpt-cat {
+    position: relative;
+    z-index: 10;
+}
+
+.dpt-cat .dpt-head {
+    position: relative;
+    width: 300px;
+    padding: 0.75em 1.5em;
+    background-color: var(--primary-color);
+    border-radius: 7px 7px 0 0;
+    color: white;
+    margin-bottom: -1.8em;
+}
+
+.dpt-cat .dpt-head .mini-text {
+    color: var(--light-bg-color);
+}
+
+.dpt-cat .dpt-trigger {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 1.3em;
+    height: 60px;
+    width: 60px;
+
+}
+
+.dpt-menu>ul>li>a {
+    font-size: small;
+    height: 46px;
+    align-items: center;
+}
+
+.dpt-menu .has-child:hover ul{
+    display: block;
+}
+
+.dpt-menu .has-child li a:hover{
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+/*-------------------
+* Header Search Form
+---------------------*/
+
+.header-main .right {
+    flex: 1;
+}
+
+form {
+    position: relative
+}
+
+form.search input {
+    /* margin-bottom: 4rem; */
+    line-height: 3.25em;
+    padding: 0 7em 0 4.5em;
+    border: 0;
+    outline: 0;
+    width: 100%;
+    border-radius: 7px;
+    font-size: 0.9em;
+    font-weight: 300;
+}
+
+form.search :where(span, button) {
+    position: absolute;
+    top: 0;
+    padding: 0.55em 1.5em;
+    font-size: 1em;
+    color: var(--light-text-color);
+    height: 100%;
+}
+
+form.search button {
+    /* height: 47px; */
+    right: 0;
+    border: 0;
+    outline: 0;
+    font-size: 0.875em;
+    font-weight: 600;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 0 7px 7px 0;
+    cursor: pointer;
+    transition: var(--trans-background);
+}
+
+form.search button:hover {
+    background-color: var(--dark-color);
+}
+
+
+
+
+
+
+
+
+
+
+/* HEADER --------------------
+* Responsive Menu - off Canvas
+------------------------------ */
+
+.site-off{
+    position: fixed;
+    width: 320px;
+    height: 100%;
+    background-color: white;
+    overflow-y: auto;
+    z-index: 1000;
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition: transform .4s, visibility .4s;
+    will-change: trasform, visibility;
+}
+
+.showmenu .site-off{
+    transform: translateX(0);
+    visibility: visible;
+    transform: transform .4s 0s, visibility 0s 0s;
+}
+.off-canvas{
+    width: 100%;
+    height: 100;
+    touch-action: auto;
+    padding: 1.5em;
+}
+.off-canvas .canvas-head{
+    color: white;
+    justify-content: space-between;
+    padding: 1.5em;
+    margin: -1.5em -1.5em 1.5em;
+    background-color: var(--secondary-dark-color);
+    border-bottom-right-radius: 160px 25px;
+}
+.off-canvas .canvas-head .logo{
+    z-index: 10;
+    position: relative;
+}
+.off-canvas .canvas-head .logo .circle{
+    opacity: .75;
+}
+.t-close{
+    font-size: 1.25em;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--secondary-dark-color);
+    color: white;
+    transition: var(--trans-background-color);
+}
+.t-close:hover{
+    background-color: white;
+    color: var(--secondary-dark-color);
+    opacity: .75;
+}
+.off-canvas .dpt-head{
+    font-size: small;
+    padding: 1em;
+    margin-bottom: 1em;
+    text-align: center;
+    background-color: var(--light-bg-color);
+    border-radius: 7px 7px 0 0;
+}
+
+.off-canvas .has-child > :where(ul, .mega){
+    font-size: small;
+    font-weight: 300;
+    line-height: 28px;
+    padding-left: 3em;
+
+    height: auto;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.off-canvas .expand > :where(ul, .mega)
+{
+    max-height: 2000px;
+}
+.off-canvas .thetop-nav ul, .off-canvas nav > ul{
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: small;
+    line-height: 36px;
+    padding-top: 1.25em;
+    margin: 1.25em 0;
+    border-top: 1px solid var(--border-color);
+}
+.off-canvas nav .mega{
+    padding: 0;
+}
+.off-canvas nav .mega .products{
+    display: none;
+}
+.off-canvas .has-child .icon-small{
+    padding: 0.5em;
+    line-height: initial;
+}
+.off-canvas .dpt-menu .icon-small i {
+    transform: rotate(90deg);
+}
+.off-canvas .has-child {
+    width: 100%;  
+}
+
+.off-canvas .thetop-nav .right > ul > :where(:nth-child(4), li:nth-child(5)) > a {
+    display: none;
+}
+
+.off-canvas .thetop-nav .right ul ul{
+    display: flex;
+    flex-direction: row;
+}
+.off-canvas .thetop-nav .right ul ul li a{
+    padding: 0.5em;
+    border: 1px solid var(--border-color);
+    line-height: 16px;
+    margin: 0 0.5em 0.5em 0;
+}
+
+
+
+
+/*--------------- 
+ * 02. SLIDER
+------------------*/
+.shoes img{
+    object-fit: cover;
+}
+
+.slider .item{
+    position: relative;
+    /* display: flex;
+    flex-direction: row; */
+    height: 474px;
+}
+.slider .item::before{
+    content: '';
+    position: absolute;
+	top: 30%;
+	left: 0;
+    width: 450px;
+    height: 300px;
+    background-color: white;
+    z-index: 1;
+    filter: blur(50px);
+    opacity: .8;
+}
+.slider .text-content{
+    position: relative;
+    height: 100%;
+    justify-content: flex-end;
+    padding: 0 0 10% 10%;
+    z-index: 1;
+}
+.slider h4 {
+    font-size: small;
+    font-weight: 700;
+    width: fit-content;
+    padding: 4px 10px;
+    background-color: var(--dark-color);
+    color: white;
+    border-radius: 4px;
+}
+
+.text-content :where(h2,h3) span:first-child{
+    font-weight: 300;
+    color: var(--light-text-color);
+}
+.text-content :where(h2,h3) span:last-child{
+   color: var(--secondary-dark-color);
+   text-transform: uppercase;
+   letter-spacing: -1px;
+}
+
+.swiper-pagination .swiper-pagination-bullet-active{
+    background-color: var(--secondary-dark-color);
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ----------
+  * Brands
+-------------*/
+.brands .wrapper{
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 2em 0;
+}
+
+.brands .item img{
+    /* opacity: .20; */
+    transition: opacity .3s;
+}
+.brands .tem a:hover img{
+    opacity: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* -----------
+  * Product block style
+--------------- */
+
+.sectop{
+    justify-content: space-between;
+    padding-bottom: 0.5em;
+    margin-bottom: 2em;
+    border-bottom: 1px solid var(--border-color);
+}
+.sectop h2{
+    position: relative;
+    font-size: 1.5em;
+    font-weight: 700;
+}
+.sectop h2 span:not(.circle){
+    padding: 0 0 0 2em;
+}
+.sectop h2 .circle{
+    top: -5px;
+}
+
+
+
+
+/* Product------------------
+    * Global Products
+---------------------------- */
+.products .offer{
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+.products .offer p {
+    text-transform: uppercase;
+    margin-bottom: 0.5em;
+}
+.products .offer ul{
+    gap: 1em;
+}
+.products .offer ul li{
+    position: relative;
+    width: 34px;
+    height: 34px;
+    padding: 0.5em;
+    line-height: initial;
+    color: var(--secondary-dark-color);
+    background-color: var(--light-bg-color);
+    border-radius: 5px;
+}
+.products .offer ul li:not(:last-child)::before{
+    content: ':';
+    position: absolute;
+    right: -0.6em;
+    color: var(--light-text-color);
+}
+.products :where(.image, .thumbnail) img{
+    transition: trasform .3s;
+}
+.products :where(.image, .thumbnail):hover img{
+    transform: scale(1.1);
+}
+
+.products .hoverable{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.products .hoverable li a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0.25em;
+    margin: 0.25em;
+    border-radius: 50%;
+    line-height: 1;
+    background-color: white;
+    opacity: .5;
+    transition: var(--trans-background-color), opacity .3s;
+}
+
+.products .item:hover .hoverable li a{
+    opacity: 1;
+}
+
+.products .hoverable li a:hover{
+    color: white;
+    background-color: var(--dark-color);
+}
+
+.products .hoverable li.active a:hover{
+    background-color: var(--primary-color);
+}
+
+.products .hoverable li:not(.active){
+    transform: translate(100%);
+    opacity: 0;
+    transition: transform .3s, opacity .2s;
+}
+.products .item:hover .hoverable li{
+    transform: translate(0);
+    opacity: 1;
+}
+
+.products .hoverable li:last-child{
+    transition-delay: .1s;
+}
+.products .discount{
+    margin-bottom: 0.5rem;
+    top: auto;
+    right: 0;
+    left: auto;
+    bottom: 0;
+    background-color: transparent;
+    z-index: 1;
+}
+.products .discount::before{
+    background-color: var(--dark-color);
+}
+.products .discount span{
+    position: relative;
+    font-size: smaller;
+    font-weight: 500;
+    color: white;
+}
+
+.products .content{
+    display: flex;
+    flex-direction: column;
+}
+.products:where(.big,.main.one) .content{
+    gap: 1em;
+    margin-top: 1.25em;
+}
+.products .rating{
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+.products .rating .stars{
+    width: 80px;
+    height: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='16' height='16'%3E%3Cpath d='M12.0006 18.26L4.94715 22.2082L6.52248 14.2799L0.587891 8.7918L8.61493 7.84006L12.0006 0.5L15.3862 7.84006L23.4132 8.7918L17.4787 14.2799L19.054 22.2082L12.0006 18.26Z' fill='rgba(240,187,64,1)'%3E%3C/path%3E%3C/svg%3E");
+    background-position-y: top;
+    background-repeat-y: no-repeat;
+}
+
+/* to set width of stars */
+.products .item:where(:nth-child(3)) .stars{
+    width: 64px;
+}
+
+.products h3{
+    font-family: 'Rubik';
+    font-size: 1.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+.products h3 a:hover{
+    text-decoration: underline;
+}
+.products .price .current{
+    font-size: calc(1em + 1vw);
+    color: var(--primary-color);
+    margin-top: 0.25em;
+}
+
+
+.products .price .normal{
+    color: var(--light-text-color);
+    text-decoration: line-through;
+}
+
+.products .stock .qty{
+    display: flex;
+    justify-content: space-between;
+}
+
+.products .stock .bar{
+    height: 3px;
+    margin-top: 1em;
+    background-color: var(--border-color);
+    overflow: hidden;
+}
+
+.products .stock  .available{
+    height: 3px;
+    width: 21%;
+    background-color: var(--secondary-color);
+}
+
+.products .item{
+    display: flex;
+    position: relative;
+}
+
+.products .stock-danger{
+    color: var(--primary-color);
+}
+
+.flexwrap .row{
+    flex: 0 0 100%;
+    width: 100%;
+    margin-bottom: 2em;
+}
+
+/* Product----------
+    *BIG Product
+----------------- */
+.products.big .item{
+    flex-direction: column;
+    padding: 2.5em;
+    border: 2px solid var(--secondary-dark-color);
+    border-radius: 7px;
+    max-width: 460px;
+    margin: 0 auto;
+}
+
+
+
+
+
+
+/* Product----------
+    *  MINI Product
+----------------- */
+.products.mini .item{
+    margin-bottom: 2em;
+}
+
+.products.mini .media{
+    width: 130px;
+    height: 160px;
+    margin-right: 1.25em;
+}
+.products.mini .content{
+    margin: 0;
+    gap: 0.75em;
+}
+.products:where(.mini,.main) h3{
+    font-weight: 400;
+}
+
+
+
+
+
+
+/* Product----------
+    * d. MINI Product
+----------------- */
+.products.main .item{
+    flex-direction: column;
+    flex: 0 0 100%;
+    padding: 0 0.938em;
+    padding-bottom: 2em;
+}
+.products.main .media{
+    height: 390px;
+}
+
+
+
+/* -----------
+ **   BANNER
+-------------*/
+
+.banner .item{
+    position: relative;
+    background-color: white;
+    border: 1px solid var(--border-color);
+}
+.banner .image{
+    text-align: right;
+}
+.banner .get-gray{
+    background-color: var(--border-color);
+}
+.banner :where(.text-content, .over-link){
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.banner .text-content{
+    padding: 1.5em 2.5em;
+}
+.banner h3 span{
+    font-size: calc(1em + 1vw);
+    font-weight: 600;
+}
+.banner h3 span{
+    font-size: 100%;
+}
+.banner .primary-button{
+    z-index: 3;
+}
+.banner .product-categories .item{
+    display: flex;
+    padding: 1.5em;
+}
+
+.banner .product-categories .image{
+    max-width: 150px;
+}
+.mini-links ul{
+    font-size: 1rem;
+    /* color: var(--light-text-color); */
+    margin-top: 1em;
+}
+.banner .second-links{
+    margin-top: 2em;
+}
+.mini-links li a:hover{
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ----------
+ **  FOOTER
+-------------*/
+
+.newsletter{
+    padding: 2.5em 0;
+    background-color: var(--dark-color);
+    color: white;
+
+}
+.newsletter h3{
+    font-size: 1.5em;
+}
+.newsletter p{
+    font-weight: 400;
+    color: var(--border-color);
+    margin: 0.5em 0 1.5em;
+}
+.newsletter p strong{
+    columns: var(--primary-color);
+}
+.newsletter form{
+    max-width: 500px;
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+.widgets{
+    padding: 3.5em 2.5em;
+    background-color: var(--light-bg-color);
+}
+
+
+
+.footer-info{
+    padding: 3.5em 0 5em;
+}
+.footer-info .wrapper .flexcol{
+    align-items: center;
+    gap: 0;
+}
+.footer-info ul li a{
+    font-size: 1.25em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--light-bg-color);
+    border-radius: 50%;
+    margin: 0.25em;
+    transition: var(--trans-background);
+}
+.footer-info ul li a:hover{
+    background-color: var(--border-color);
+}
+.footer-info .logo a{
+    margin: 0 0 1em -0.75em;
+}
+.footer-info .mini-text{
+    margin-top: 2em;
+    text-align: center;
+}
+
+
+
+/* ---------
+  ** Bottom Menu
+-----------*/
+.menu-bottom{
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 60px;
+    background-color: white;
+    box-shadow: 0 -2px 10px rgb(0, 0, 0 / 10%);
+    z-index: 900;
+}
+
+.menu-bottom nav li{
+    flex: 1;
+}
+
+.menu-bottom nav li a{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5em 0;
+    color: var(--light-text-color);
+    transition: var(--trans-color);
+}
+.menu-bottom nav li a:hover{
+    color: var(--dark-color);
+}
+.menu-bottom nav li span{
+    font-size: smaller;
+}
+.menu-bottom nav li a i{
+    font-size: 1.25em;
+}
+.menu-bottom .fly-item{
+    right: 50%;
+    width: 16px;
+    border-radius: 50%;
+    margin-right: -20px;
+    background-blend-mode: var(--secondary-dark-color);
+}
+
+
+
+
+
+
+
+.search-bottom{
+    position: fixed;
+    bottom: 60px;
+    width: 100%;
+    padding: 2.5em 0;
+    background-color: var(--secondary-dark-color);
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    will-change: visibility, opacity;
+}
+
+.showsearch .search-bottom{
+    visibility: inherit;
+    opacity: 1;
+}
+.search-bottom .t-close{
+    position: absolute;
+    top: -54px;
+    right: 0;
+}
+.search-bottom .t-close:hover{
+    background-color: var(--primary-color);
+}
+
+
+
+
+
+
+
+
+
+/* --------
+  * Overlay
+---------- */
+
+.overlay{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.4);
+    visibility: hidden;
+    opacity: 0;
+}
+
+
+
+
+
+
+/*------------------
+*  RESPONSIVE
+--------------------*/
+@media screen and (min-width: 481px){
+    .products.main .item{
+        flex: 0 0 50%;
+    }
+    
+}
+
+
+
+@media screen and (min-width: 768px) {
+    .products .price .current{
+        font-size: 1.25em;
+    }
+    .products.mini,
+    .banner .row,
+    .widgets .row {
+        flex: 0 0 50%;
+    }
+    .products.main .item{
+        flex: 0 0 24.3333%;
+    }
+    
+}
+
+
+
+
+
+@media screen and (min-width: 992px) {
+    .container {
+        padding: 0 2em;
+    }
+
+    .desktop-hide {
+        display: none;
+    }
+
+    .mobile-hide {
+        display: block;
+    }
+
+    .logo a {
+        margin-right: 2em;
+    }
+
+    .header-nav {
+        padding: 0;
+        margin: 0;
+        border-bottom: 0;
+    }
+
+    .header-nav .right li>a {
+        margin-left: 1em;
+    }
+
+
+    /* Mega menu */
+    nav .mega {
+        position: absolute;
+        width: 100%;
+        height: auto;
+        top: auto;
+        left: 0;
+        right: 0;
+        padding: 2.5em;
+        line-height: 2em;
+        background-color: var(--light-bg-color);
+        box-shadow: rgb(0 0 0 /20%) 0 30px 20px -30px;
+        z-index: 100;
+
+        display: none;
+    }
+
+    nav li.has-child:hover .mega {
+        display: block;
+    }
+
+    nav .mega .wrapper {
+        display: flex;
+    }
+
+    nav .mega h4 {
+        /* font-size: 0.8em; */
+        text-transform: uppercase;
+    }
+
+    /* nav .mega ul{
+        font-size: small;
+    } */
+
+    nav .mega .Woman-brands {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 180px;
+    }
+
+    nav .mega .Woman-brands li {
+        min-width: 80px;
+    }
+
+    nav .mega .view-all {
+        margin-top: 1em;
+    }
+
+    nav .mega .products {
+        flex: 2;
+        padding: 0;
+        align-items: center;
+        position: relative;
+    }
+
+    nav .mega .products .row {
+        width: 100%;
+    }
+
+    nav .mega .products .media {
+        height: 500px;
+    }
+
+    nav .mega .products .text-content {
+        line-height: initial;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5em;
+        margin-top: 0.5em;
+        position: absolute;
+        bottom: 6em;
+        width: 100%;
+    }
+
+    nav .mega .products .text-content h4 {
+        font-size: 2.5em;
+        font-weight: 600;
+        text-align: center;
+        color: var(--secondary-dark-color);
+    }
+
+    .header-main .right {
+        max-width: 600px;
+        margin-left: auto;
+    }
+
+    /*-------
+    Departments menu
+    ------*/
+    .dpt-menu {
+        position: absolute;
+        top: 100%;
+        width: 300px;
+        background-color: white;
+        border: 1px solid var(--border-color);
+        border-top: 0;
+        border-bottom: 0;
+    }
+
+    .dpt-menu>ul>li>a {
+        font-weight: 600;
+        padding: 0 1.5em;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .dpt-menu .has-child>ul,
+    .dpt-menu .mega {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        width: 100%;
+        height: auto;
+        min-height: 100%;
+        padding: 1.5em;
+        font-size: small;
+        line-height: 2.5em;
+        border: 1px solid var(--border-color);
+        border-top: 0;
+        display: none;
+        background-position: right bottom;
+        background-repeat: no-repeat;
+        background-size: auto;
+    }
+
+
+    /* Showing the first sub menu */
+    .dpt-menu .mega {
+        /* display: block; */
+        width: 60vw;
+    }
+
+    .dpt-menu .beauty ul {
+        background-image: url(assets/menu/menu_bg1.jpg);
+    }
+
+    .dpt-menu .electric ul {
+        background-image: url(assets/menu/menu_bg2.jpg);
+    }
+
+    .dpt-menu .fashion ul {
+        background-image: url(assets/menu/menu_bg3.jpg);
+    }
+    .dpt-menu .mens-fashion ul {
+        background-image: url(assets/menu/photo-1527010154944-f2241763d806.avif);
+    }
+
+    .dpt-menu .homekit .mega{
+        background-image: url(assets/menu/menu_bg4.jpg);
+    }
+
+    .dpt-menu .has-child > :where(ul,.mega)::before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, rgba(225,225,225,1) 0%, rgba(225,225, 225, 0));
+    }
+    .dpt-menu .mega{
+        /* width: auto;
+        min-width: 100%; */
+    }
+    .dpt-menu .has-child:hover .mega{
+        display: flex;
+    }
+
+/* ------------
+===  Slider 
+-------*/
+    .slider > div > .wrapper{
+        width: calc(100% - (300px + 2em));
+        margin-left: auto;
+    }
+
+
+
+    /* Products */
+    
+.trending .products,
+.product-categories .row{
+    flex: 0 0 33.3333%;
+}
+.products.big .media{
+    max-height: 373px;
+}
+
+.products.main .item,
+.widgets .row{
+    flex: 0 0 25%;
+}
+
+
+/* Footer */
+.newsletter .box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+}
+    </style>
+
+</head>
+
+<body>
+    <div id="page" class="site">
+
+        <aside class="site-off desktop-hide">
+            <div class="off-canvas">
+                <div class="canvas-head flexitem">
+                    <div class="logo"><a href="/"><span class="circle"></span>.Store</a></div>
+                    <a href="#" class="t-close flexcenter"><i class="ri-close-line"></i></a>
+                </div>
+                <div class="departments"></div>
+                <nav></nav>
+                <div class="thetop-nav"></div>
+            </div>
+        </aside>
+
+        <header>
+            <div class="header-top mobile-hide">
+                <div class="container">
+                    <div class="wrapper flexitem">
+                        <div class="left">
+                            <ul class="flexitem main-links">
+                                <li><a href="#">Blog</a></li>
+                                <li><a href="#">Featured Products</a></li>
+                                <li><a href="#">Wishlist</a></li>
+                            </ul>
+                        </div>
+                        <div class="right">
+                            <ul class="flexitem main-links">
+                                <li><a th:href="@{about}">About Us</a></li>
+                                <li><a th:href="@{login}">Sign Up</a></li>
+                                <!-- <li><a href="#">My Account</a></li> -->
+                                <li><a href="#">Order Tracking</a></li>
+                                <li><a href="#">USD <span class="icon-small"><i
+                                                class="ri-arrow-down-s-line"></i></span></a>
+                                    <ul>
+                                        <li class="current"><a href="#">USD</a></li>
+                                        <li><a href="#">Euro</a></li>
+                                        <li><a href="#">GBP</a></li>
+                                        <li><a href="#">IDR</a></li>
+
+                                    </ul>
+                                </li>
+                                <li><a href="#">English <span class="icon-small"><i
+                                                class="ri-arrow-down-s-line"></i></span></a>
+                                    <ul>
+                                        <li class="current"><a href="#">English</a></li>
+                                        <li><a href="#">Hindi</a></li>
+                                        <li><a href="#">Spanish</a></li>
+                                        <li><a href="#">German</a></li>
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- header-top -->
+            <div class="header-nav">
+                <div class="container">
+                    <div class="wrappper flexitem">
+                        <a href="#" class="trigger desktop-hide"><span class="i ri-menu-2-line"></span></a>
+                        <div class="left flexitem">
+                            <div class="logo"><a href="/"><span class="circle"></span>.YourDukkan</a></div>
+                            <nav class="mobile-hide">
+                                <ul class="flexitem second-links">
+                                    <li><a href="#">Home</a></li>
+                                    <li><a th:href="@{products}">Products</a></li>
+                                    <li class="has-child">
+                                        <a href="#">Men
+                                            <div class="icon-small">
+                                                <i class="ri-arrow-down-s-line"></i>
+                                            </div>
+                                        </a>
+                                        <div class="mega">
+                                            <div class="container">
+                                                <div class="wrapper">
+                                                    <div class="flexcol">
+                                                        <div class="row">
+                                                            <h4>Men's Clothing</h4>
+                                                            <ul>
+                                                                <li><a href="#">Shirts</a></li>
+                                                                <li><a href="#">T-Shirts</a></li>
+                                                                <li><a href="#">Jeans</a></li>
+                                                                <li><a href="#">Pants</a></li>
+                                                                <li><a href="#">Jackets</a></li>
+                                                                <li><a href="#">Sweaters</a></li>
+                                                                <li><a href="#">Hoodies & Sweatshirts</a></li>
+                                                                <li><a href="#">Shorts</a></li>
+                                                                <li><a href="#">Swimwear</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flexcol">
+                                                        <div class="row">
+                                                            <h4>Accessories</h4>
+                                                            <ul>
+                                                                <li><a href="#">Bags & Backpacks</a></li>
+                                                                <li><a href="#">Watches</a></li>
+                                                                <li><a href="#">Belts</a></li>
+                                                                <li><a href="#">Hats</a></li>
+                                                                <li><a href="#">Sunglasses</a></li>
+                                                                <li><a href="#">Ties</a></li>
+                                                                <li><a href="#">Cufflinks</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flexcol">
+                                                        <div class="row">
+                                                            <h4>Shoes</h4>
+                                                            <ul>
+                                                                <li><a href="#">Casual Shoes</a></li>
+                                                                <li><a href="#">Sneakers</a></li>
+                                                                <li><a href="#">Boots</a></li>
+                                                                <li><a href="#">Dress Shoes</a></li>
+                                                                <li><a href="#">Sandals</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flexcol">
+                                                        <div class="row">
+                                                            <h4>Top Brands</h4>
+                                                            <ul class="Men-brands">
+                                                                <li><a href="#">Adidas</a></li>
+                                                                <li><a href="#">Nike</a></li>
+                                                                <li><a href="#">Puma</a></li>
+                                                                <li><a href="#">Levi's</a></li>
+                                                                <li><a href="#">Calvin Klein</a></li>
+                                                                <li><a href="#">Tommy Hilfiger</a></li>
+                                                                <li><a href="#">Ralph Lauren</a></li>
+                                                                <li><a href="#">Gucci</a></li>
+                                                                <li><a href="#">Under Armour</a></li>
+                                                                <li><a href="#">H&M</a></li>
+                                                                <li><a href="#">Zara</a></li>
+                                                            </ul>
+                                                            <a href="" class="view-all">View all brands <i
+                                                                    class="ri-arrow-right-line"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flexcol products">
+                                                        <div class="row">
+                                                            <div class="media">
+                                                                <div class="thumbnail object-cover">
+                                                                    <a href="#">
+                                                                        <img src="assets/assets/products/apparel1.jpg"
+                                                                            alt="">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-content">
+                                                                <h4>New Arrivals!</h4>
+                                                                <a href="#" class="primary-button">Shop Now</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="has-child">
+                                        <a href="#">Women
+                                            <div class="icon-small">
+                                                <i class="ri-arrow-down-s-line"></i>
+                                            </div>
+                                        </a>
+                                        <div class="mega">
+                                            <div class="container">
+                                                <div class="wrapper">
+                                                    <div class="flexcol">
+                                                        <div class="row">
+                                                            <h4>Women's Clothing</h4>
+                                                            <ul>
+                                                                <li><a href="#">Dresses</a></li>
+                                                                <li><a href="#">Tops & tees</a></li>
+                                                                <li><a href="#">Jacket & Coats</a></li>
+                                                                <li><a href="#">pants & Capris</a></li>
+                                                                <li><a href="#">Sweaters</a></li>
+                                                                <li><a href="#">Costumes</a></li>
+                                                                <li><a href="#">Hoodies & Sweatshirts</a></li>
+                                                                <li><a href="#">Pajamas & Robes</a></li>
+                                                                <li><a href="#">Shorts</a></li>
+                                                                <li><a href="#">Swimwear</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flexcol">
+                                                        <div class="row">
+                                                            <h4>Jewelry</h4>
+                                                            <ul>
+                                                                <li><a href="#">Accessories</a></li>
+                                                                <li><a href="#">Bags & Purses</a></li>
+                                                                <li><a href="#">Necklaeces</a></li>
+                                                                <li><a href="#">Rings</a></li>
+                                                                <li><a href="#">Earrings</a></li>
+                                                                <li><a href="#">Bracelets</a></li>
+                                                                <li><a href="#">Body Jewelry</a></li>
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flexcol">
+                                                        <div class="row">
+                                                            <h4>Beauty</h4>
+                                                            <ul>
+                                                                <li><a href="#">Baths Accessories</a></li>
+                                                                <li><a href="#">Makeup & Cosmetics</a></li>
+                                                                <li><a href="#">Skin Care</a></li>
+                                                                <li><a href="#">Hair Care</a></li>
+                                                                <li><a href="#">Essential Oils</a></li>
+                                                                <li><a href="#">Fragrances</a></li>
+                                                                <li><a href="#">Soaps & Bath Bombs</a></li>
+                                                                <li><a href="#">Face Masks & Coverings</a></li>
+                                                                <li><a href="#">Spa Kits & Gifts</a></li>
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flexcol">
+                                                        <div class="row">
+                                                            <h4>Top Brands</h4>
+                                                            <ul class="Woman-brands">
+                                                                <li><a href="#">Nike</a></li>
+                                                                <li><a href="#">Louis Vuitton</a></li>
+                                                                <li><a href="#">Hermes</a></li>
+                                                                <li><a href="#">Gucci</a></li>
+                                                                <li><a href="#">Zalando</a></li>
+                                                                <li><a href="#">Tiffancy & co.</a></li>
+                                                                <li><a href="#">Zara</a></li>
+                                                                <li><a href="#">H&M</a></li>
+                                                                <li><a href="#">Cartier</a></li>
+                                                                <li><a href="#">Chanel</a></li>
+                                                                <li><a href="#">Hurley</a></li>
+                                                            </ul>
+                                                            <a href="" class="view-all">View all brands <i
+                                                                    class="ri-arrow-right-line"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flexcol products">
+                                                        <div class="row">
+                                                            <div class="media">
+                                                                <div class="thumbnail object-cover">
+                                                                    <a href="#">
+                                                                        <img src="assets/assets/products/apparel4.jpg"
+                                                                            alt="">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-content">
+                                                                <h4>Most Wanted!</h4>
+                                                                <a href="#" class="primary-button">Order Now</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">Sports
+                                            <div class="fly-item"><span>New!</span></div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="right">
+                            <ul class="flexitem second-links">
+                                <li class="mobile-hide"><a href="#">
+                                        <div class="icon-large">
+                                            <i class="ri-heart-line"></i>
+                                            <div class="fly-item"><span class="item-number">0</span></div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li><a href="#" class="iscart">
+                                        <div class="icon-large">
+                                            <i class="ri-shopping-cart-line"></i>
+                                            <div class="fly-item"><span class="item-number">0</span></div>
+                                        </div>
+                                        <div class="icon-text">
+                                            <div class="mini-text">Total</div>
+                                            <div class="cart-total">$0.00</div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-main mobile-hide">
+                <div class="container">
+                    <div class="wrapper flexitem">
+                        <div class="left">
+                            <div class="dpt-cat">
+                                <div class="dpt-head">
+                                    <div class="main-text">All Departments</div>
+                                    <div class="mini-text mobile-hide">Total 1059 Products</div>
+                                    <a href="#" class="dpt-trigger mobile-hide">
+                                        <i class="ri-menu-3-line ri-xl"></i>
+                                    </a>
+                                </div>
+                                <div class="dpt-menu">
+                                    <ul class="second-links">
+                                        <li class="has-child beauty">
+                                            <a href="#">
+                                                <div class="icon-large"><i class="ri-bear-smile-line"></i></div>
+                                                Beauty
+                                                <div class="icon-small"><i class="ri-arrow-right-s-line"></i></div>
+                                            </a>
+                                            <ul>
+                                                <li><a href="#">Makeup</a></li>
+                                                <li><a href="#">Skin Care</a></li>
+                                                <li><a href="#">Hair Care</a></li>
+                                                <li><a href="#">Fragrance</a></li>
+                                                <li><a href="#">Foot & Hand Care</a></li>
+                                                <li><a href="#">Tools & Accessories</a></li>
+                                                <li><a href="#">Shave & Hair Removal</a></li>
+                                                <li><a href="#">Personal Care</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="has-child electric">
+                                            <a href="#">
+                                                <div class="icon-large"><i class="ri-bluetooth-connect-line"></i>
+                                                </div>
+                                                Electronic
+                                                <div class="icon-small"><i class="ri-arrow-right-s-line"></i></div>
+                                            </a>
+                                            <ul>
+                                                <li><a href="#">Camera</a></li>
+                                                <li><a href="#">Cell Phones</a></li>
+                                                <li><a href="#">Computers</a></li>
+                                                <li><a href="#">GPS & Navigation</a></li>
+                                                <li><a href="#">Headphones</a></li>
+                                                <li><a href="#">Home Audio</a></li>
+                                                <li><a href="#">Television</a></li>
+                                                <li><a href="#">Video Projectors</a></li>
+                                                <li><a href="#">Wearable Technology</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="has-child fashion">
+                                            <a href="#">
+                                                <div class="icon-large"><i class="ri-t-shirt-air-line"></i></div>
+                                                Women's Fashion
+                                                <div class="icon-small"><i class="ri-arrow-right-s-line"></i></div>
+                                            </a>
+                                            <ul>
+                                                <li><a href="#">Clothing</a></li>
+                                                <li><a href="#">Shoes</a></li>
+                                                <li><a href="#">Jewelry</a></li>
+                                                <li><a href="#">Watches</a></li>
+                                                <li><a href="#">Handbags</a></li>
+                                                <li><a href="#">Accessories</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="has-child mens-fashion">
+                                            <a href="#">
+                                                <div class="icon-large"><i class="ri-shirt-line"></i></div>
+                                                Men's Fashion
+                                                <div class="icon-small"><i class="ri-arrow-right-s-line"></i></div>
+                                            </a>
+                                            <ul>
+                                                <li><a href="#">Clothing</a></li>
+                                                <li><a href="#">Shoes</a></li>
+                                                <li><a href="#">Watches</a></li>
+                                                <li><a href="#">Bags</a></li>
+                                                <li><a href="#">Accessories</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="icon-large"><i class="ri-user-5-line"></i></div>
+                                                Girl's Fashion
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="icon-large"><i class="ri-user-6-line"></i></div>
+                                                Boy's Fashion
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="icon-large"><i class="ri-heart-pulse-line"></i></div>
+                                                Health & Household
+                                            </a>
+                                        </li>
+                                        <li class="has-child homekit">
+                                            <a href="#">
+                                                <div class="icon-large"><i class="ri-home-8-line"></i></div>
+                                                Home & Kithchen
+                                                <div class="icon-small"><i class="ri-arrow-right-s-line"></i></div>
+                                            </a>
+                                            <div class="mega">
+                                                <div class="flexcol">
+                                                    <div class="row">
+                                                        <h4><a href="#">Kithchen & Dining</a></h4>
+                                                        <ul>
+                                                            <li><a href="#">Kithchen</a></li>
+                                                            <li><a href="#">Dining Room</a></li>
+                                                            <li><a href="#">Pantry</a></li>
+                                                            <li><a href="#">Great Room</a></li>
+                                                            <li><a href="#">Breakfast Nook</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="row">
+                                                        <h4><a href="#">Living</a></h4>
+                                                        <ul>
+                                                            <li><a href="#">Living Room</a></li>
+                                                            <li><a href="#">Family Room</a></li>
+                                                            <li><a href="#">Sunroom</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="flexcol">
+                                                    <div class="row">
+                                                        <h4><a href="#">Bed & Baths</a></h4>
+                                                        <ul>
+                                                            <li><a href="#">Bathroom</a></li>
+                                                            <li><a href="#">Powder Room</a></li>
+                                                            <li><a href="#">Bedroom</a></li>
+                                                            <li><a href="#">Storage & Closet</a></li>
+                                                            <li><a href="#">Baby & Kids</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="row">
+                                                        <h4><a href="#">Utility</a></h4>
+                                                        <ul>
+                                                            <li><a href="#">Laundry</a></li>
+                                                            <li><a href="#">Garage</a></li>
+                                                            <li><a href="#">Mudrrom</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="flexcol">
+                                                    <div class="row">
+                                                        <h4><a href="#">Outdoor</a></h4>
+                                                        <ul>
+                                                            <li><a href="#">Landscape</a></li>
+                                                            <li><a href="#">Patio</a></li>
+                                                            <li><a href="#">Deck</a></li>
+                                                            <li><a href="#">Pool</a></li>
+                                                            <li><a href="#">Backyard</a></li>
+                                                            <li><a href="#">Porch</a></li>
+                                                            <li><a href="#">Exterior</a></li>
+                                                            <li><a href="#">Outdoor Kithchen</a></li>
+                                                            <li><a href="#">Front Yard</a></li>
+                                                            <li><a href="#">Driverway</a></li>
+                                                            <li><a href="#">Poolhouse</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="icon-large"><i class="ri-android-line"></i></div>
+                                                Pet Supplies
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="icon-large"><i class="ri-basketball-line"></i></div>
+                                                Sports
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="icon-large"><i class="ri-shield-star-line"></i></div>
+                                                Best Seller
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="search-box">
+                                <form action="" class="search">
+                                    <span class="icon large"><i class="ri-search-line"></i></span>
+                                    <input type="search" placeholder="Search for products">
+                                    <button type="submit">Search</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="slider">
+                <div class="container">
+                    <div class="wrapper">
+                        <div class="myslider swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="item">
+                                        <div class="image object-cover shoes">
+                                            <img src="assets/slider/shoes-1.avif">
+                                        </div>
+                                        <div class="text-content flexcol">
+                                            <h4>Shoes Fashion</h4>
+                                            <h2><span>Come and Get it!</span><br><span>Brand New Shoes</span></h2>
+                                            <a href="#" class="primary-button">Shop Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide">
+                                    <div class="item">
+                                        <div class="image object-cover">
+                                            <img src="assets/assets/slider/slider1.jpg" alt="">
+                                            
+                                        </div>
+                                        <div class="text-content flexcol">
+                                            <h4>Quick Fashion</h4>
+                                            <h2><span>Fit Your Wardrobe</span><br><span>WITH LUXURY ITEMS</span></h2>
+                                            <a href="#" class="primary-button">Shop Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="swiper-slide">
+                                    <div class="item">
+                                        <div class="image object-cover">
+                                            <img src="./assets/slider/slider2.jpg" alt="">
+                                        </div>
+                                        <div class="text-content flexcol">
+                                            <h4>Quick Fashion</h4>
+                                            <h2><span>Wooden Minimal Sofa</span><br><span>EXTRA 50% OFF</span></h2>
+                                            <a href="#" class="primary-button">Shop Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="swiper-slide">
+                                    <div class="item">
+                                        <div class="image object-cover">
+                                            <img src="./assets/slider/workout.avif" alt="">
+                                        </div>
+                                        <div class="text-content flexcol">
+                                            <h4>Best Deals</h4>
+                                            <h2><span>Home Workout Accessories</span><br><span>PUSH THE LIMIT</span>
+                                            </h2>
+                                            <a href="#" class="primary-button">Shop Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slider -->
+            <div class="brands">
+                <div class="container">
+                    <div class="wrapper flexitem">
+                        <div class="item">
+                            <a href="#">
+                                <img src="./assets/brands/zara.png" alt="">
+                            </a>
+                        </div>
+
+                        <div class="item">
+                            <a href="#">
+                                <img src="./assets/brands/samsung.png" alt="">
+                            </a>
+                        </div>
+
+                        <div class="item">
+                            <a href="#">
+                                <img src="./assets/brands/oppo.png" alt="">
+                            </a>
+                        </div>
+
+                        <div class="item">
+                            <a href="#">
+                                <img src="./assets/brands/asus.png" alt="">
+                            </a>
+                        </div>
+
+                        <div class="item">
+                            <a href="#">
+                                <img src="./assets/brands/hurley.png" alt="">
+                            </a>
+                        </div>
+
+                        <div class="item">
+                            <a href="#">
+                                <img src="./assets/brands/dng.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- brands -->
+            <div class="trending">
+                <div class="container">
+                    <div class="wrapper">
+                        <div class="sectop flexitem">
+                            <h2><span class="circle"></span><span>Trending Products</span></h2>
+                        </div>
+                        <div class="column">
+                            <div class="flexwrap">
+                                <div class="row products big">
+                                    <div class="item">
+                                        <div class="offer">
+                                            <p>Offer ends at</p>
+                                            <ul class="flexcenter">
+                                                <li>1</li>
+                                                <li>15</li>
+                                                <li>27</li>
+                                                <li>60</li>
+                                            </ul>
+                                        </div>
+                                        <div class="media">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <img src="./assets/products/apparel1.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="hoverable">
+                                                <ul>
+                                                    <li class="active"><a href="#"><i class="ri-heart-line"></i></a>
+                                                    </li>
+                                                    <li><a href=""><i class="ri-eye-line"></i></a></li>
+                                                    <li><a href=""><i class="ri-shuffle-line"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="discount circle flexcenter"><span>31%</span></div>
+                                        </div>
+                                        <div class="content">
+                                            <div class="rating">
+                                                <div class="stars"></div>
+                                                <span class="mini-text">(2,548)</span>
+                                            </div>
+                                            <h3 class="main-links"><a href="#">Under Armour Men's Tech</a></h3>
+                                            <div class="price">
+                                                <span class="current">$129.99</span>
+                                                <span class="normal mini-text">$189.98</span>
+                                            </div>
+                                            <div class="stock mini-text">
+                                                <div class="qty">
+                                                    <span>Stock: <strong class="qty-available">107</strong></span>
+                                                    <span>Sold: <strong class="qty-sold">3,459</strong></span>
+
+                                                </div>
+                                                <div class="bar">
+                                                    <div class="available"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row products mini">
+                                    <div class="item">
+                                        <div class="media">
+                                            <div class="thumbnail object-cover">
+                                                <a href="#">
+                                                    <img src="./assets/products/apparel3.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="hoverable">
+                                                <ul>
+                                                    <li class="active"><a href="#"><i class="ri-heart-line"></i></a>
+                                                    </li>
+                                                    <li><a href=""><i class="ri-eye-line"></i></a></li>
+                                                    <li><a href=""><i class="ri-shuffle-line"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="discount circle flexcenter"><span>32%</span></div>
+                                        </div>
+                                        <div class="content">
+                                            <h3 class="main-links"><a href="#">Black Women's Coat Dress</a></h3>
+                                            <div class="rating">
+                                                <div class="stars"></div>
+                                                <span class="mini-text">(2,548)</span>
+                                            </div>
+                                            <div class="price">
+                                                <span class="current">$129.99</span>
+                                                <span class="normal mini-text">$189.98</span>
+                                            </div>
+                                            <div class="mini-text">
+                                                <!-- <p>2975 sold</p> -->
+                                                <p>Free Shipping</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="item">
+                                        <div class="media">
+                                            <div class="thumbnail object-cover">
+                                                <a href="#">
+                                                    <img src="./assets/products/apparel4.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="hoverable">
+                                                <ul>
+                                                    <li class="active"><a href="#"><i class="ri-heart-line"></i></a>
+                                                    </li>
+                                                    <li><a href=""><i class="ri-eye-line"></i></a></li>
+                                                    <li><a href=""><i class="ri-shuffle-line"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="discount circle flexcenter"><span>25%</span></div>
+                                        </div>
+                                        <div class="content">
+                                            <h3 class="main-links"><a href="#">Happy Sailed Womens Summer Boho
+                                                    Floral</a></h3>
+
+                                            <div class="rating">
+                                                <div class="stars"></div>
+                                                <span class="mini-text">(1,955)</span>
+                                            </div>
+
+                                            <div class="price">
+                                                <span class="current">$56.99</span>
+                                                <span class="normal mini-text">$675.98</span>
+                                            </div>
+                                            <div class="mini-text">
+                                                <p>2975 sold</p>
+                                                <p>Free Shipping</p>
+                                                <p class="stock-danger">Stock: 7 left!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="media">
+                                            <div class="thumbnail object-cover">
+                                                <a href="#">
+                                                    <img src="./assets/products/home1.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="hoverable">
+                                                <ul>
+                                                    <li class="active"><a href="#"><i class="ri-heart-line"></i></a>
+                                                    </li>
+                                                    <li><a href=""><i class="ri-eye-line"></i></a></li>
+                                                    <li><a href=""><i class="ri-shuffle-line"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="discount circle flexcenter"><span>37%</span></div>
+                                        </div>
+                                        <div class="content">
+                                            <h3 class="main-links"><a href="#">Vonanda Velvet Sofa Couch</a></h3>
+
+                                            <div class="rating">
+                                                <div class="stars"></div>
+                                                <span class="mini-text">(1,599)</span>
+                                            </div>
+
+                                            <div class="price">
+                                                <span class="current">$469.99</span>
+                                                <span class="normal mini-text">$755.98</span>
+                                            </div>
+                                            <div class="mini-text">
+                                                <p>2151 sold</p>
+                                                <!-- <p>Free Shipping</p> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="media">
+                                            <div class="thumbnail object-cover">
+                                                <a href="#">
+                                                    <img src="./assets/products/electronic3.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="hoverable">
+                                                <ul>
+                                                    <li class="active"><a href="#"><i class="ri-heart-line"></i></a>
+                                                    </li>
+                                                    <li><a href=""><i class="ri-eye-line"></i></a></li>
+                                                    <li><a href=""><i class="ri-shuffle-line"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="discount circle flexcenter"><span>20%</span></div>
+                                        </div>
+                                        <div class="content">
+                                            <h3 class="main-links"><a href="#">Wireless Headphones Over Ear,
+                                                    Bluetooth</a></h3>
+
+                                            <div class="rating">
+                                                <div class="stars"></div>
+                                                <span class="mini-text">(1,411)</span>
+                                            </div>
+
+                                            <div class="price">
+                                                <span class="current">$99.96</span>
+                                                <span class="normal mini-text">$125.98</span>
+                                            </div>
+                                            <div class="mini-text">
+                                                <p>1843 sold</p>
+                                                <p>Free Shipping</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Right -->
+
+                                <div class="row products mini">
+                                    <div class="item">
+                                        <div class="media">
+                                            <div class="thumbnail object-cover">
+                                                <a href="#">
+                                                    <img src="./assets/products/shoe1.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="hoverable">
+                                                <ul>
+                                                    <li class="active"><a href="#"><i class="ri-heart-line"></i></a>
+                                                    </li>
+                                                    <li><a href=""><i class="ri-eye-line"></i></a></li>
+                                                    <li><a href=""><i class="ri-shuffle-line"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="discount circle flexcenter"><span>32%</span></div>
+                                        </div>
+                                        <div class="content">
+                                            <h3 class="main-links"><a href="#">Men Slip On Shoes Casual With Arch
+                                                    Support Insoles</a></h3>
+
+                                            <div class="rating">
+                                                <div class="stars"></div>
+                                                <span class="mini-text">(2,548)</span>
+                                            </div>
+
+                                            <div class="price">
+                                                <span class="current">$129.99</span>
+                                                <span class="normal mini-text">$189.98</span>
+                                            </div>
+                                            <div class="mini-text">
+                                                <p>2975 sold</p>
+                                                <p>Free Shipping</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="item">
+                                        <div class="media">
+                                            <div class="thumbnail object-cover">
+                                                <a href="#">
+                                                    <img src="./assets/products/apparel2.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="hoverable">
+                                                <ul>
+                                                    <li class="active"><a href="#"><i class="ri-heart-line"></i></a>
+                                                    </li>
+                                                    <li><a href=""><i class="ri-eye-line"></i></a></li>
+                                                    <li><a href=""><i class="ri-shuffle-line"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="discount circle flexcenter"><span>17%</span></div>
+                                        </div>
+                                        <div class="content">
+                                            <h3 class="main-links"><a href="#">Womens Lightweight knit Hoodie Sweater
+                                                    Pullover</a></h3>
+
+                                            <div class="rating">
+                                                <div class="stars"></div>
+                                                <span class="mini-text">(994)</span>
+                                            </div>
+
+                                            <div class="price">
+                                                <span class="current">$37.99</span>
+                                                <span class="normal mini-text">$689.98</span>
+                                            </div>
+                                            <div class="mini-text">
+                                                <p>1298 sold</p>
+                                                <p>Free Shipping</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="item">
+                                        <div class="media">
+                                            <div class="thumbnail object-cover">
+                                                <a href="#">
+                                                    <img src="./assets/products/home2.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="hoverable">
+                                                <ul>
+                                                    <li class="active"><a href="#"><i class="ri-heart-line"></i></a>
+                                                    </li>
+                                                    <li><a href=""><i class="ri-eye-line"></i></a></li>
+                                                    <li><a href=""><i class="ri-shuffle-line"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="discount circle flexcenter"><span>32%</span></div>
+                                        </div>
+                                        <div class="content">
+                                            <h3 class="main-links"><a href="#">Men Slip On Shoes Casual With Arch
+                                                    Support Insoles</a></h3>
+
+                                            <div class="rating">
+                                                <div class="stars"></div>
+                                                <span class="mini-text">(2,548)</span>
+                                            </div>
+
+                                            <div class="price">
+                                                <span class="current">$129.99</span>
+                                                <span class="normal mini-text">$189.98</span>
+                                            </div>
+                                            <div class="mini-text">
+                                                <p>2975 sold</p>
+                                                <p>Free Shipping</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="item">
+                                        <div class="media">
+                                            <div class="thumbnail object-cover">
+                                                <a href="#">
+                                                    <img src="./assets/products/home3.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="hoverable">
+                                                <ul>
+                                                    <li class="active"><a href="#"><i class="ri-heart-line"></i></a>
+                                                    </li>
+                                                    <li><a href=""><i class="ri-eye-line"></i></a></li>
+                                                    <li><a href=""><i class="ri-shuffle-line"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="discount circle flexcenter"><span>32%</span></div>
+                                        </div>
+                                        <div class="content">
+                                            <h3 class="main-links"><a href="#">Men Slip On Shoes Casual With Arch
+                                                    Support Insoles</a></h3>
+
+                                            <div class="rating">
+                                                <div class="stars"></div>
+                                                <span class="mini-text">(2,548)</span>
+                                            </div>
+
+                                            <div class="price">
+                                                <span class="current">$129.99</span>
+                                                <span class="normal mini-text">$189.98</span>
+                                            </div>
+                                            <div class="mini-text">
+                                                <p>2975 sold</p>
+                                                <p>Free Shipping</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- trending -->
+            <div class="features">
+                <div class="container">
+                    <div class="wrapper">
+                        <div class="column">
+                            <div class="sectop flexitem">
+                                <h2><span class="circle"></span><span>Features Products</span></h2>
+                                <div class="second-links">
+                                    <a href="#" class="view-all">View all<i class="ri-arrow-right-line"></i></a>
+                                </div>
+                            </div>
+                            <div class="products main flexwrap">
+                                <div class="item">
+                                    <div class="media">
+                                        <div class="thumbnail object-cover">
+                                            <a href="#">
+                                                <img src="./assets/products/apparel1.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="hoverable">
+                                            <ul>
+                                                <li class="active"><a href="#"><i class="ri-heart-line"></i></a></li>
+                                                <li><a href=""><i class="ri-eye-line"></i></a></li>
+                                                <li><a href=""><i class="ri-shuffle-line"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="discount circle flexcenter"><span>25%</span></div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="rating">
+                                            <div class="stars"></div>
+                                            <span class="mini-text">(1,955)</span>
+                                        </div>
+                                        <h3 class="main-links"><a href="#">Under Armour Men's Tech</a>
+                                        </h3>
+                                        <div class="price">
+                                            <span class="current">$56.99</span>
+                                            <span class="normal mini-text">$75.50</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="media">
+                                        <div class="thumbnail object-cover">
+                                            <a href="#">
+                                                <img src="./assets/products/apparel2.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="hoverable">
+                                            <ul>
+                                                <li class="active"><a href="#"><i class="ri-heart-line"></i></a>
+                                                </li>
+                                                <li><a href=""><i class="ri-eye-line"></i></a></li>
+                                                <li><a href=""><i class="ri-shuffle-line"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="discount circle flexcenter"><span>17%</span></div>
+                                    </div>
+                                    <div class="content">
+
+                                        <div class="rating">
+                                            <div class="stars"></div>
+                                            <span class="mini-text">(994)</span>
+                                        </div>
+
+                                        <h3 class="main-links"><a href="#">Womens Lightweight knit Hoodie Sweater
+                                                Pullover</a></h3>
+
+                                        <div class="price">
+                                            <span class="current">$37.99</span>
+                                            <span class="normal mini-text">$689.98</span>
+                                        </div>
+                                        <div class="mini-text">
+                                            <p>1298 sold</p>
+                                            <p>Free Shipping</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="media">
+                                        <div class="thumbnail object-cover">
+                                            <a href="#">
+                                                <img src="./assets/products/apparel3.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="hoverable">
+                                            <ul>
+                                                <li class="active"><a href="#"><i class="ri-heart-line"></i></a>
+                                                </li>
+                                                <li><a href=""><i class="ri-eye-line"></i></a></li>
+                                                <li><a href=""><i class="ri-shuffle-line"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="discount circle flexcenter"><span>32%</span></div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="rating">
+                                            <div class="stars"></div>
+                                            <span class="mini-text">(2,548)</span>
+                                        </div>
+                                        <h3 class="main-links"><a href="#">Black Women's Coat Dress</a></h3>
+
+                                        <div class="price">
+                                            <span class="current">$129.99</span>
+                                            <span class="normal mini-text">$189.98</span>
+                                        </div>
+                                        <div class="mini-text">
+                                            <p>Cotton</p>
+                                            <p>Fashion Personality</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="media">
+                                        <div class="thumbnail object-cover">
+                                            <a href="#">
+                                                <img src="./assets/products/apparel4.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="hoverable">
+                                            <ul>
+                                                <li class="active"><a href="#"><i class="ri-heart-line"></i></a>
+                                                </li>
+                                                <li><a href=""><i class="ri-eye-line"></i></a></li>
+                                                <li><a href=""><i class="ri-shuffle-line"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="discount circle flexcenter"><span>32%</span></div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="rating">
+                                            <div class="stars"></div>
+                                            <span class="mini-text">(1,090)</span>
+                                        </div>
+                                        <h3 class="main-links"><a href="#">Happy Sailed Womens Summer Boho
+                                                Floral</a></h3>
+
+                                        <div class="price">
+                                            <span class="current">$209.99</span>
+                                            <span class="normal mini-text">$389.98</span>
+                                        </div>
+                                        <div class="mini-text">
+                                            <p>Imported</p>
+                                            <p>Machine Wash</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="item">
+                                    <div class="media">
+                                        <div class="thumbnail object-cover">
+                                            <a href="#">
+                                                <img src="./assets/products/shoe1.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="hoverable">
+                                            <ul>
+                                                <li class="active"><a href="#"><i class="ri-heart-line"></i></a>
+                                                </li>
+                                                <li><a href=""><i class="ri-eye-line"></i></a></li>
+                                                <li><a href=""><i class="ri-shuffle-line"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="discount circle flexcenter"><span>32%</span></div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="rating">
+                                            <div class="stars"></div>
+                                            <span class="mini-text">(2,548)</span>
+                                        </div>
+
+                                        <h3 class="main-links"><a href="#">Men Slip On Shoes Casual With Arch
+                                                Support Insoles</a></h3>
+
+
+                                        <div class="price">
+                                            <span class="current">$129.99</span>
+                                            <span class="normal mini-text">$189.98</span>
+                                        </div>
+                                        <div class="mini-text">
+                                            <p>2975 sold</p>
+                                            <p>Free Shipping</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="media">
+                                        <div class="thumbnail object-cover">
+                                            <a href="#">
+                                                <img src="./assets/products/shoe2.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="hoverable">
+                                            <ul>
+                                                <li class="active"><a href="#"><i class="ri-heart-line"></i></a>
+                                                </li>
+                                                <li><a href=""><i class="ri-eye-line"></i></a></li>
+                                                <li><a href=""><i class="ri-shuffle-line"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="discount circle flexcenter"><span>35%</span></div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="rating">
+                                            <div class="stars"></div>
+                                            <span class="mini-text">(1,008)</span>
+                                        </div>
+                                        <h3 class="main-links"><a href="#">Men Slip On Shoes Casual With Arch
+                                                Support Insoles</a></h3>
+
+
+
+                                        <div class="price">
+                                            <span class="current">$209.99</span>
+                                            <span class="normal mini-text">$389.98</span>
+                                        </div>
+                                        <div class="mini-text">
+                                            <p>3375 sold</p>
+                                            <p>Free Shipping</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="media">
+                                        <div class="thumbnail object-cover">
+                                            <a href="#">
+                                                <img src="./assets/products/shoe3.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="hoverable">
+                                            <ul>
+                                                <li class="active"><a href="#"><i class="ri-heart-line"></i></a>
+                                                </li>
+                                                <li><a href=""><i class="ri-eye-line"></i></a></li>
+                                                <li><a href=""><i class="ri-shuffle-line"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="discount circle flexcenter"><span>35%</span></div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="rating">
+                                            <div class="stars"></div>
+                                            <span class="mini-text">(1,008)</span>
+                                        </div>
+                                        <h3 class="main-links"><a href="#">Men Slip On Shoes Casual With Arch
+                                                Support Insoles</a></h3>
+
+
+
+                                        <div class="price">
+                                            <span class="current">$209.99</span>
+                                            <span class="normal mini-text">$389.98</span>
+                                        </div>
+                                        <div class="mini-text">
+                                            <p>3375 sold</p>
+                                            <p>Free Shipping</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="media">
+                                        <div class="thumbnail object-cover">
+                                            <a href="#">
+                                                <img src="./assets/products/shoe4.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="hoverable">
+                                            <ul>
+                                                <li class="active"><a href="#"><i class="ri-heart-line"></i></a>
+                                                </li>
+                                                <li><a href=""><i class="ri-eye-line"></i></a></li>
+                                                <li><a href=""><i class="ri-shuffle-line"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="discount circle flexcenter"><span>35%</span></div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="rating">
+                                            <div class="stars"></div>
+                                            <span class="mini-text">(1,008)</span>
+                                        </div>
+                                        <h3 class="main-links"><a href="#">Men Slip On Shoes Casual With Arch
+                                                Support Insoles</a></h3>
+
+
+
+                                        <div class="price">
+                                            <span class="current">$209.99</span>
+                                            <span class="normal mini-text">$389.98</span>
+                                        </div>
+                                        <div class="mini-text">
+                                            <p>3375 sold</p>
+                                            <p>Free Shipping</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- featured Products -->
+            <div class="banners">
+                <div class="container">
+                    <div class="wrapper">
+                        <div class="column">
+                            <div class="banner flexwrap">
+                                <div class="row">
+                                    <div class="item">
+                                        <div class="image">
+                                            <img src="assets/banner/banner1.jpg" alt="">
+                                        </div>
+                                        <div class="text-content flexcol">
+                                            <h4>Brutal Sale!</h4>
+                                            <h3><span>Get the deal in here</span><br>Living Room Chair</h3>
+                                            <a href="#" class="primary-button">Shop Now</a>
+                                        </div>
+                                        <a href="#" class="over-link"></a>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="item get-gray">
+                                        <div class="image">
+                                            <img src="assets/banner/banner2.jpg" alt="">
+                                        </div>
+                                        <div class="text-content flexcol">
+                                            <h4>Brutal Sale!</h4>
+                                            <h3><span>Discount everyday</span><br>Office Outfit</h3>
+                                            <a href="#" class="primary-button">Shop Now</a>
+                                        </div>
+                                        <a href="#" class="over-link"></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- banners -->
+                            <div class="product-categories flexwrap">
+                                <div class="row">
+                                    <div class="item">
+                                        <div class="image">
+                                            <img src="assets/banner/procat1.jpg" alt="">
+                                        </div>
+                                        <div class="content mini-links">
+                                            <h4>Beauty</h4>
+                                            <ul class="flexcol">
+                                                <li><a href="#">Makeup</a></li>
+                                                <li><a href="#">Skin Care</a></li>
+                                                <li><a href="#">Hair Care</a></li>
+                                                <li><a href="#">Fragrance</a></li>
+                                                <li><a href="#">Foot & Hand Care</a></li>
+                                            </ul>
+                                            <div class="second-links">
+                                                <a href="#" class="view-all">View all<i class="ri-arrow-right-line"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="item">
+                                        <div class="image">
+                                            <img src="assets/banner/procat2.jpg" alt="">
+                                        </div>
+                                        <div class="content mini-links">
+                                            <h4>Gatdets</h4>
+                                            <ul class="flexcol">
+                                                <li><a href="#">Camera</a>
+                                                <li><a href="#">Cell Phones</a></li>
+                                                <li><a href="#">Computers</a></li>
+                                                <li><a href="#">GPS & Navigation</a></li>
+                                                <li><a href="#">Headphones</a></li>
+                                                </li>
+                                            </ul>
+                                            <div class="second-links">
+                                                <a href="#" class="view-all">View all<i class="ri-arrow-right-line"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="item">
+                                        <div class="image">
+                                            <img src="assets/banner/procat3.jpg" alt="">
+                                        </div>
+                                        <div class="content mini-links">
+                                            <h4>Home Decor</h4>
+                                            <ul class="flexcol">
+                                                <li><a href="#">Kithen</a></li>
+                                                <li><a href="#">Dining Room</a></li>
+                                                <li><a href="#">Pantry</a></li>
+                                                <li><a href="#">Great Room</a></li>
+                                                <li><a href="#">Breakfast Nook</a></li>
+
+                                            </ul>
+                                            <div class="second-links">
+                                                <a href="#" class="view-all">View all<i class="ri-arrow-right-line"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="newsletter">
+                <div class="container">
+                    <div class="wrapper">
+                        <div class="box">
+                            <div class="content">
+                                <h3>Join Our Newsletter</h3>
+                                <p>Get E-mail updates about our latest shop and <strong>Special offers</strong></p>
+                            </div>
+                            <form action="" class="search">
+                                <span class="incon-large"><i class="ri-mail-line"></i></span>
+                                <input type="mail" placeholder="Your email address" required>
+                                <button type="submit">Sign Up</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- newsletter -->
+
+            <div class="widgets">
+                <div class="container">
+                    <div class="wrapper">
+                        <div class="flexwrap">
+                            <div class="row">
+                                <div class="item mini-links">
+                                    <h4>Help & Contact</h4>
+                                    <ul class="flexcol">
+                                        <li><a href="#">Your Account</a></li>
+                                        <li><a href="#">Your Orders</a></li>
+                                        <li><a href="#">Shipping Rates</a></li>
+                                        <li><a href="#">Assistant</a></li>
+                                        <li><a href="#">Help</a></li>
+                                        <li><a href="#">Contact Us</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="item mini-links">
+                                    <h4>Products Categories</h4>
+                                    <ul class="flexcol">
+                                        <li><a href="#">Beauty</a></li>
+                                        <li><a href="#">Electronic</a></li>
+                                        <li><a href="#">Women's fashion</a></li>
+                                        <li><a href="#">Men's fashion</a></li>
+                                        <li><a href="#">Girl's fashion</a></li>
+                                        <li><a href="#">Boys's fashion</a></li>
+                                        <li><a href="#">Health & Household</a></li>
+                                        <li><a href="#">Home & Kithen</a></li>
+                                        <li><a href="#">Pet Supplies</a></li>
+                                        <li><a href="#">Sports</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="item mini-links">
+                                    <h4>Payment Info</h4>
+                                    <ul class="flexcol">
+                                        <li><a href="#">Bussiness Card</a></li>
+                                        <li><a href="#">Shop with Points</a></li>
+                                        <li><a href="#">Reload Your Balance</a></li>
+                                        <li><a href="#">Paypal</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="item mini-links">
+                                    <h4>About Us</h4>
+                                    <ul class="flexcol">
+                                        <li><a th:href="@{about}">Company info</a></li>
+                                        <li><a th:href="@{about}">News</a></li>
+                                        <li><a th:href="@{about}">Investors</a></li>
+                                        <li><a th:href="@{about}">Careers</a></li>
+                                        <li><a th:href="@{about}">Policies</a></li>
+                                        <li><a th:href="@{about}">Customer reviews</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-info">
+                <div class="container">
+                    <div class="wrapper">
+                        <div class="flexcol">
+                            <div class="logo">
+                                <a href=""><span class="circle"></span>.YourDukkan</a>
+                            </div>
+                            <div class="socials">
+                                <ul class="flexitem">
+                                    <li><a href="#"><i class="ri-twitter-line"></i></a></li>
+                                    <li><a href="#"><i class="ri-facebook-line"></i></a></li>
+                                    <li><a href="#"><i class="ri-instagram-line"></i></a></li>
+                                    <li><a href="#"><i class="ri-linkedin-line"></i></a></li>
+                                    <li><a href="#"><i class="ri-youtube-line"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="mini-text">Copyright 2023 c .Store. All right reserved.</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="menu-bottom desktop-hide">
+                <div class="container">
+                    <div class="wrapper">
+                        <nav>
+                            <ul class="flexitem">
+                                <li>
+                                    <a href="#">
+                                        <i class="ri-bar-chart-line"></i>
+                                        <span>Trending</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="ri-user-6-line"></i>
+                                        <span>Account</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="ri-heart-line"></i>
+                                        <span>Wishlist</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#0" class="t-search">
+                                        <i class="ri-search-line"></i>
+                                        <span>Search</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#0">
+                                        <i class="ri-shopping-cart-line"></i>
+                                        <span>Cart</span>
+                                        <div class="fly-item">
+                                            <span class="item-number">0</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-bottom desktop-hide">
+                <div class="container">
+                    <div class="wrapper">
+                        <form action="" class="search">
+                            <a href="#" class="t-close search-close flexcenter"><i class="ri-close-line"></i></a>
+                            <span class="incon-large"><i class="ri-search-line"></i></span>
+                            <input type="search" placeholder="Your email address" required>
+                            <button type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script src="/src/main/resources/static/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2> Welcome to page</h2>
+   
+    <table>
+        <thead>
+            <tr><th> First Name</th>
+            <th>Image Url</th>
+        </tr>
+        <tbody>
+            <tr th:each="UserForHome:${myData}">
+            <td th:text="${UserForHome.fname}"></td>
+            
+            <td th:text="${UserForHome.lname}"></td>
+            <td th:text="${UserForHome.email}"></td>
+            <td th:text="${UserForHome.image}"></td>
+
+            <td><img th:src="${UserForHome.image}" width="80px" height="80px"> </td></tr>
+        </tbody>
+        </thead>
+    </table>
+</body>
+</html>
